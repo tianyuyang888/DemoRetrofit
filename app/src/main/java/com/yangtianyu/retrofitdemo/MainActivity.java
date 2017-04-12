@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         QMService service = retrofit.create(QMService.class);
-        final Call<BaseResponse<AddressEntity>> repos = service.repos("0");
+        Call<BaseResponse<AddressEntity>> repos = service.repos("0");
         repos.enqueue(new MyCallback<BaseResponse<AddressEntity>>() {
             @Override
             protected void onResponseSuccess(Object body) {
