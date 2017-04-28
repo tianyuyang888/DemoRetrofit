@@ -5,7 +5,6 @@ import com.yangtianyu.retrofitdemo.base.LocalConstant;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
@@ -15,10 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiManger {
     private volatile static ApiManger apiManger;
     private static QMApi qmApi;
-    private static TokenInterceptor tokenInterceptor;
+    private static QMApi qmApi2;
     private static OkHttpClient client = new OkHttpClient.Builder()
             .addNetworkInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .addInterceptor(tokenInterceptor)
             .build();
 
     private ApiManger(){}
@@ -45,8 +43,7 @@ public class ApiManger {
             synchronized (ApiManger.class){
                 if (qmApi == null){
                     qmApi = new Retrofit.Builder()
-                            .baseUrl(LocalConstant.BASE_URL)
-                            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                            .baseUrl(LocalConstant.BASE_URL2)
                             .client(client)
                             .addConverterFactory(GsonConverterFactory.create())
                             .build().create(QMApi.class);
@@ -55,5 +52,21 @@ public class ApiManger {
         }
         return qmApi;
     }
+
+    /**
+     * Description: 传入baseUrl获取QMApi实例
+     * Date: 2017/4/28 10:07
+     * @param url retrofit的baseUrl
+     */
+    public QMApi getQMApi(String url){
+        qmApi2 = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client)
+                .build().create(QMApi.class);
+        return  qmApi2;
+    }
+
+
 
 }

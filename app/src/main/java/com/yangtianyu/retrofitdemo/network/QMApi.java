@@ -1,6 +1,8 @@
 package com.yangtianyu.retrofitdemo.network;
 
 import com.yangtianyu.retrofitdemo.bean.AddressEntity;
+import com.yangtianyu.retrofitdemo.bean.BaseResModel;
+import com.yangtianyu.retrofitdemo.bean.UserInfoEntity;
 
 import java.util.Map;
 
@@ -21,8 +23,8 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public interface QMApi {
     @GET("10001/getProvinceCityAreaList")
-    Call<ResponseBody> repos(@Query("localVersion") String localVersion);
+    Call<BaseResModel<AddressEntity>> getProvinceCityAreaList(@Query("localVersion") String localVersion);
 
     @POST("10001/qmLogin")
-    Call<ResponseBody> login(@Body RequestBody jsonBody);
+    Call<BaseResModel<UserInfoEntity>> login(@Body RequestBody jsonBody);
 }

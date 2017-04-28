@@ -22,4 +22,37 @@
         style="@style/text_white_20"
         android:gravity="center"
         android:text="@string/login"/>
+    <TextView
+        android:layout_marginLeft="100dp"
+        android:background="@drawable/selector_btn"
+        android:id="@+id/tv_login"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
+        style="@style/text_white_20"
+        android:gravity="center"
+        android:text="@string/login"/>
+
+    <TextView
+        android:padding="5dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/selector_btn"
+        android:id="@+id/tv_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/text_white_20"
+        android:gravity="center"
+        android:text="@string/login"/>
+
+    <TextView
+        android:padding="5dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/selector_btn"
+        android:id="@+id/tv_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/text_white_20"
+        android:gravity="center"
+        android:text="@string/login"/>
+
+
 </RelativeLayout>

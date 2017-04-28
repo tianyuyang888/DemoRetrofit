@@ -1,6 +1,5 @@
 package com.yangtianyu.retrofitdemo.utils;
 
-import android.util.Log;
 
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -31,7 +30,6 @@ public class Md5Util {
             list.add("\""+key+"\""+":"+"\""+map.get(key)+"\"");
         }
         Collections.sort(list);
-
         StringBuilder str = new StringBuilder("{");
         for (int i = 0; i < list.size(); i++) {
             if (i == list.size()-1){
@@ -57,7 +55,6 @@ public class Md5Util {
 //            }
 //        }
 //        str = "{\"" + str.replace("=", "\":\"") + "\"}";
-        Log.i("3333", str.toString().trim());
         return get(str.toString().trim(), APP_SECRET);
 
     }
@@ -78,7 +75,6 @@ public class Md5Util {
             }
         }
         str = "{\"" + str.replace("=", "\":\"") + "\"}";
-        Log.i("222222", str);
         return get(str, APP_SECRET);
     }
 
