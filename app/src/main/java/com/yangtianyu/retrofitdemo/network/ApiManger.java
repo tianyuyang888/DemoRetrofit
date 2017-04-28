@@ -2,6 +2,8 @@ package com.yangtianyu.retrofitdemo.network;
 
 import com.yangtianyu.retrofitdemo.base.LocalConstant;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -16,8 +18,14 @@ public class ApiManger {
     private static QMApi qmApi;
     private static QMApi qmApi2;
     private static OkHttpClient client = new OkHttpClient.Builder()
+            // Log信息拦截器
             .addNetworkInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-            .build();
+            //设置超时
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(20, TimeUnit.SECONDS)
+            .writeTimeout(20, TimeUnit.SECONDS)
+            //错误重连
+            .retryOnConnectionFailure(true).build();
 
     private ApiManger(){}
 
