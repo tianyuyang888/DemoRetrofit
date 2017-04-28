@@ -1,41 +1,91 @@
 package com.yangtianyu.retrofitdemo;
 
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
-import com.yangtianyu.retrofitdemo.base.LocalConstant;
-import com.yangtianyu.retrofitdemo.bean.AddressEntity;
-import com.yangtianyu.retrofitdemo.bean.BaseResponse;
-import com.yangtianyu.retrofitdemo.network.MyCallback;
-import com.yangtianyu.retrofitdemo.network.QMService;
+import com.yangtianyu.retrofitdemo.fragment.RxjavaFragment;
+import com.yangtianyu.retrofitdemo.utils.Md5Util;
 
-import retrofit2.Call;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import org.json.JSONException;
+import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.HashMap;
+import java.util.Map;
+
+public class MainActivity extends FragmentActivity {
 
     private TextView mTv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTv = (TextView) findViewById(R.id.tv_test);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(LocalConstant.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        QMService service = retrofit.create(QMService.class);
-        Call<BaseResponse<AddressEntity>> repos = service.repos("0");
-        repos.enqueue(new MyCallback<BaseResponse<AddressEntity>>() {
+        mTv.setOnClickListener(new View.OnClickListener() {
             @Override
-            protected void onResponseSuccess(Object body) {
-                AddressEntity addressEntity = (AddressEntity) body;
-                mTv.setText(addressEntity.provinceList.get(0).provinceName);
+            public void onClick(View v) {
+//                login();
+                getAddress();
             }
         });
+        FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragment_container);
+        if (fragment == null){
+            fragment = new RxjavaFragment();
+            fm.beginTransaction()
+                    .add(R.id.fragment_container,fragment);
+//                    .commit();
+        }
+
+
     }
+
+    private void login() {
+//        Map<String, String> params = new LinkedHashMap<>();
+//        params.put("password","111111");
+//        params.put("phoneNumber","18862966889");
+//        String json = getJson(params);
+//        Log.i("json---->" + json);
+//        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+//        RequestBody body = RequestBody.create(JSON, json);
+//        Call<ResponseBody> login = mService.login(body);
+//        login.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+//                if (response.isSuccessful())
+//                    Log.d(response.code()+"aaaaaaaaaaaaaaaaa");
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//
+//            }
+//        });
+    }
+
+
+    private void getAddress() {
+
+    }
+
+
+    private String getJson(Map<String, String> params) {
+        JSONObject obj = new JSONObject();
+        try {
+            for (String value : params.keySet()) {
+                obj.put(value,params.get(value));
+            }
+            obj.put("sign", Md5Util.getSign((HashMap) params));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return obj.toString();
+    }
+
+
 }

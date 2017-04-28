@@ -45,6 +45,8 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile androidDependencies.support_v4
     compile androidDependencies.appcompat_v7
-    compile networkDependencies.retrofit
-    compile networkDependencies.gson
+    compile networkDependencies.converter_gson
+    compile networkDependencies.adapter_rxjava
+    compile networkDependencies.logging_interceptor
+    compile rxjava.rxandroid
 }

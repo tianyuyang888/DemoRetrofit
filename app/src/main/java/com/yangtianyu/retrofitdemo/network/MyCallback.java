@@ -20,27 +20,14 @@ import retrofit2.Response;
  * Created by yangtianyu on 2017/4/12.
  */
 
-public abstract class MyCallback<T extends BaseResponse> implements Callback<T> {
+public abstract class MyCallback<T> implements Callback<T> {
     private static final int TOKEN_OK = 200;
     private static final int TOKEN_ERROR = 600; //token过期
 
     @Override
     public void onResponse(Call<T> call, Response<T> response) {
-        if (response.raw().code() == 200){
-            switch (response.body().code) {
-                case TOKEN_OK:
-                    onResponseSuccess(response.body().data);
-                    break;
-                case TOKEN_ERROR:
-                    failure(response.body().msg);
-                    break;
-                case 608:
-                    failure(response.body().msg);
-                    break;
-                default:
-                    failure(response.body().msg);
-                    break;
-            }
+        if (response.isSuccessful()){
+
         }else {
             onFailure(call,new RuntimeException("response error,detail = " + response.raw().toString()));
         }
@@ -62,6 +49,7 @@ public abstract class MyCallback<T extends BaseResponse> implements Callback<T> 
         }else if (t instanceof RuntimeException){
             onSysError();
         }
+        call.cancel();
     }
 
 //    网络错误

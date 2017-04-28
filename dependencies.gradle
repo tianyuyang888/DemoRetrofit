@@ -21,7 +21,13 @@ ext {
 
     //networkLibraries
     retrofit = '2.2.0'
-    gson = '2.2.0'
+    converter_gson = '2.2.0'
+    adapter_rxjava = '2.2.0'
+    logging_interceptor = '3.3.1'
+
+    //rxjava
+    rxjava = '2.0.1'
+    rxandroid = '2.0.1'
 
     androidDependencies = [
             recyclerView: "com.android.support:recyclerview-v7:${supportLibraryVersion}",
@@ -54,6 +60,12 @@ ext {
     ]
     networkDependencies = [
             retrofit: "com.squareup.retrofit2:retrofit:${retrofit}",
-            gson: "com.squareup.retrofit2:converter-gson:${gson}"
+            converter_gson: "com.squareup.retrofit2:converter-gson:${converter_gson}",
+            adapter_rxjava: "com.squareup.retrofit2:adapter-rxjava:${adapter_rxjava}",
+            logging_interceptor: "com.squareup.okhttp3:logging-interceptor:${logging_interceptor}"
+    ]
+    rxjava = [
+            rxjava: "io.reactivex.rxjava2:rxjava:${rxjava}",
+            rxandroid: "io.reactivex.rxjava2:rxandroid:${rxjava}"
     ]
 }
